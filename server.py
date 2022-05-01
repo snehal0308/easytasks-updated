@@ -24,9 +24,6 @@ if ENV_FILE:
 
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
-
 oauth = OAuth(app)
 
 oauth.register(
@@ -39,7 +36,6 @@ oauth.register(
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/login")
 def login():
@@ -48,16 +44,11 @@ def login():
     )
 
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
-
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/")
-
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/logout")
 def logout():
@@ -74,13 +65,10 @@ def logout():
         )
     )
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/")
 def home():
     return render_template("home.html", session=session.get('user'))
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 
 # create db for tasks  
